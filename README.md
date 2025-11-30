@@ -145,4 +145,3 @@ Este projeto é livre para uso educacional e profissional.
 Igor Cavalcanti
 Desenvolvedor Java | Spring Boot | Golang | APIs & Microsserviços
 LinkedIn: https://www.linkedin.com/in/igor-cavalcanti
-
