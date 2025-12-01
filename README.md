@@ -34,8 +34,6 @@ src/main/java/com/igorcavalcanti/currency_converter_api
 │ └── CurrencyRates.java
 └── CurrencyConverterApiApplication.java
 
-yaml
-
 ---
 
 ## 🛠 Como rodar o projeto
@@ -65,10 +63,9 @@ to	String	Sim	BRL
 amount	BigDecimal	Sim	100
 
 Exemplo de requisição:
-sql
+
 GET http://localhost:8080/api/convert?from=GBP&to=BRL&amount=100
 Resposta:
-json
 
 {
   "from": "GBP",
@@ -80,7 +77,6 @@ json
 ❗ Tratamento de Erros
 Se o usuário enviar uma combinação inválida, o sistema retorna:
 
-json
 {
   "status": 400,
   "message": "Conversion rate not available for GBP -> JPY"
