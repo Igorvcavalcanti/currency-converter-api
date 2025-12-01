@@ -35,7 +35,6 @@ src/main/java/com/igorcavalcanti/currency_converter_api
 └── CurrencyConverterApiApplication.java
 
 yaml
-Copiar código
 
 ---
 
@@ -52,13 +51,10 @@ Copiar código
 mvn spring-boot:run
 Ou rode a classe principal:
 
-Copiar código
 CurrencyConverterApiApplication.java
 A API estará disponível em:
-
-arduino
-Copiar código
 http://localhost:8080
+
 📌 Endpoint Principal
 GET /api/convert
 Realiza a conversão de uma moeda para outra usando taxas fixas.
@@ -70,11 +66,10 @@ amount	BigDecimal	Sim	100
 
 Exemplo de requisição:
 sql
-Copiar código
 GET http://localhost:8080/api/convert?from=GBP&to=BRL&amount=100
 Resposta:
 json
-Copiar código
+
 {
   "from": "GBP",
   "to": "BRL",
@@ -86,7 +81,6 @@ Copiar código
 Se o usuário enviar uma combinação inválida, o sistema retorna:
 
 json
-Copiar código
 {
   "status": 400,
   "message": "Conversion rate not available for GBP -> JPY"
@@ -96,7 +90,7 @@ Esse comportamento é gerenciado por um @RestControllerAdvice global.
 💱 Taxas Utilizadas (exemplo)
 As taxas estão definidas em memória no arquivo:
 
-Copiar código
+
 util/CurrencyRates.java
 Exemplos:
 
