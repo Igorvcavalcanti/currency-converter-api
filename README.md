@@ -24,14 +24,23 @@ O projeto demonstra fundamentos essenciais de desenvolvimento back-end:
 
 src/main/java/com/igorcavalcanti/currency_converter_api
 │── controller
+
 │ └── ConversionController.java
+
 │── dto
+
 │ └── response
+
 │ └── ConversionResponse.java
+
 │── service
+
 │ └── ConversionService.java
+
 │── util
+
 │ └── CurrencyRates.java
+
 └── CurrencyConverterApiApplication.java
 
 ---
