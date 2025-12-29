@@ -10,13 +10,19 @@ O projeto demonstra fundamentos essenciais de desenvolvimento back-end:
 
 ---
 
-## 🚀 Tecnologias Utilizadas
-- **Java 17**
-- **Spring Boot 4 (Web MVC)**
-- **Lombok**
-- **Maven**
-- **Insomnia/Postman** (para testes)
-- **Tomcat Embutido**
+## ✨ Funcionalidades
+- Conversão de moedas com validação de entrada
+- Cache das taxas usando Spring Cache (`@EnableCaching` + `@Cacheable`)
+- Documentação da API com Swagger / OpenAPI (springdoc 3.x)
+- Tratamento global de erros com `@RestControllerAdvice`
+- Respostas padronizadas com `ErrorResponse`
+
+## 🧱 Tecnologias principais
+- Java 17+
+- Spring Boot 4.x
+- Spring Web
+- Spring Cache
+- springdoc-openapi (Swagger UI)
 
 ---
 
@@ -54,26 +60,42 @@ CurrencyConverterApiApplication.java
 A API estará disponível em:
 http://localhost:8080
 
-## 📌 Endpoint Principal
-GET /api/convert
-Realiza a conversão de uma moeda para outra usando taxas fixas.
-```bash
-Nome	     Tipo	Obrigatório	Exemplo
-from	    String	  Sim     	GBP
-to	      String	  Sim	      BRL
-amount	BigDecimal	Sim     	100
-```
-## Exemplo de requisição:
-```bash
-GET http://localhost:8080/api/convert?from=GBP&to=BRL&amount=100
-Resposta:
+## 📌 Endpoints
 
+### GET `/api/convert`
+Realiza a conversão entre duas moedas.
+
+**Parâmetros:**
+| Nome   | Tipo       | Exemplo |
+|--------|-------------|----------|
+| from   | String      | GBP      |
+| to     | String      | BRL      |
+| amount | BigDecimal  | 100.00   |
+
+**Exemplo de sucesso (200):**
+```json
 {
-  "from": "GBP",
-  "to": "BRL",
+  "fromCurrency": "GBP",
+  "toCurrency": "BRL",
   "originalAmount": 100.00,
   "convertedAmount": 706.00,
   "rate": 7.06
+}
+```
+
+## 📚 Documentação (Swagger)
+
+Após subir a aplicação:
+
+Swagger UI: http://localhost:8080/swagger-ui/index.html
+
+OpenAPI JSON: http://localhost:8080/v3/api-docs
+
+**Exemplo de erro (400):**
+```json
+{
+  "message": "Conversion rate not available for GBP -> XYZ",
+  "timestamp": "2025-12-10T21:31:00Z"
 }
 ```
 
@@ -101,6 +123,29 @@ BRL ➝ USD = 0.19
 USD ➝ GBP = 0.75
 ```
 
+### 🧩 Sobre as taxas
+Atualmente as taxas são estáticas e armazenadas em memória (`CurrencyRates.java`) apenas para fins demonstrativos.
+Em um cenário real, essa camada pode ser substituída por:
+- Banco de dados
+- API externa de câmbio
+- Serviço interno da empresa
+
+
+## 🧠 Arquitetura (resumo)
+
+- controller – recebe a requisição HTTP e delega para o serviço
+
+- service – contém a regra de negócio (conversão, uso de cache)
+
+- util – taxas em memória (CurrencyRates)
+
+- exception – exceções de domínio e handler global da API
+
+- dto – objetos de entrada/saída expostos pela API
+
+O cache é aplicado no RateService via @Cacheable("currencyRates"), o que permite evoluir futuramente para buscar taxas de uma API externa sem alterar o contrato da aplicação.
+
+
 ## 🎯 Objetivo do Projeto
 Este projeto foi criado para consolidar os seguintes conhecimentos:
 
@@ -119,13 +164,10 @@ Desenvolvimento orientado a camadas
 Exposição de endpoint simples utilizando query params
 
 ## 🧩 Possíveis Melhorias Futuras (Roadmap)
-Adicionar documentação Swagger/OpenAPI
 
 Inserir testes unitários com JUnit + Mockito
 
 Conectar a uma API real de câmbio
-
-Implementar cache das taxas
 
 Criar Dockerfile
 
