@@ -21,7 +21,7 @@ O projeto demonstra fundamentos essenciais de desenvolvimento back-end:
 ---
 
 ## 📁 Estrutura do Projeto
-
+```bash
 src/main/java/com/igorcavalcanti/currency_converter_api
 │── controller
 │ └── ConversionController.java
@@ -33,9 +33,7 @@ src/main/java/com/igorcavalcanti/currency_converter_api
 │── util
 │ └── CurrencyRates.java
 └── CurrencyConverterApiApplication.java
-
-yaml
-
+```
 ---
 
 ## 🛠 Como rodar o projeto
@@ -49,32 +47,26 @@ yaml
 
 ```bash
 mvn spring-boot:run
+```
 Ou rode a classe principal:
-
 
 CurrencyConverterApiApplication.java
 A API estará disponível em:
-
-arduino
-
 http://localhost:8080
-📌 Endpoint Principal
+
+## 📌 Endpoint Principal
 GET /api/convert
 Realiza a conversão de uma moeda para outra usando taxas fixas.
-
-Nome	Tipo	Obrigatório	Exemplo
-from	String	Sim	GBP
-to	String	Sim	BRL
-amount	BigDecimal	Sim	100
-
-Observação: o valor de amount deve ser maior que zero; caso contrário, a API retorna erro 400.
-
-Exemplo de requisição:
-sql
-Copiar código
+```bash
+Nome	     Tipo	Obrigatório	Exemplo
+from	    String	  Sim     	GBP
+to	      String	  Sim	      BRL
+amount	BigDecimal	Sim     	100
+```
+## Exemplo de requisição:
+```bash
 GET http://localhost:8080/api/convert?from=GBP&to=BRL&amount=100
 Resposta:
-json
 
 {
   "from": "GBP",
@@ -83,20 +75,22 @@ json
   "convertedAmount": 706.00,
   "rate": 7.06
 }
-❗ Tratamento de Erros
+```
+
+## ❗ Tratamento de Erros
 Se o usuário enviar uma combinação inválida, o sistema retorna:
-
-json
-
+```bash
 {
   "status": 400,
   "message": "Conversion rate not available for GBP -> JPY"
 }
+```
 Esse comportamento é gerenciado por um @RestControllerAdvice global.
 
-💱 Taxas Utilizadas (exemplo)
+## 💱 Taxas Utilizadas (exemplo)
 As taxas estão definidas em memória no arquivo:
 
+```bash
 util/CurrencyRates.java
 Exemplos:
 
@@ -105,8 +99,9 @@ GBP ➝ BRL = 7.06
 BRL ➝ USD = 0.19
 
 USD ➝ GBP = 0.75
+```
 
-🎯 Objetivo do Projeto
+## 🎯 Objetivo do Projeto
 Este projeto foi criado para consolidar os seguintes conhecimentos:
 
 Criação de APIs REST com Spring Boot
@@ -123,7 +118,7 @@ Desenvolvimento orientado a camadas
 
 Exposição de endpoint simples utilizando query params
 
-🧩 Possíveis Melhorias Futuras (Roadmap)
+## 🧩 Possíveis Melhorias Futuras (Roadmap)
 Adicionar documentação Swagger/OpenAPI
 
 Inserir testes unitários com JUnit + Mockito
@@ -138,10 +133,10 @@ Habilitar CORS configurável
 
 Implementar validação personalizada de moedas
 
-📝 Licença
+## 📝 Licença
 Este projeto é livre para uso educacional e profissional.
 
-🧑‍💻 Autor
+## 🧑‍💻 Autor
 Igor Cavalcanti
 Desenvolvedor Java | Spring Boot | Golang | APIs & Microsserviços
 LinkedIn: https://www.linkedin.com/in/igor-cavalcanti
