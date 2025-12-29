@@ -2,9 +2,14 @@ package com.igorcavalcanti.currency_converter_api.controller;
 
 
 import com.igorcavalcanti.currency_converter_api.dto.response.ConversionResponse;
+import com.igorcavalcanti.currency_converter_api.dto.response.ErrorResponse;
 import com.igorcavalcanti.currency_converter_api.service.ConversionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +33,24 @@ public class ConversionController {
             summary = "Converte valores entre duas moedas",
             description = "Realiza a conversao usando taaxas internas em memoria. Esse endpoint ja possui cache das taxas"
     )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Conversao realizada com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ConversionResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Taxa de conversao nao encontrada ou parametros invalidos",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
     public ResponseEntity<ConversionResponse> convert(
             @Parameter(description = "Moeda de origem (ex: GBP)", example = "GBP")
             @RequestParam String from,

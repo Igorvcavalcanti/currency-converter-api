@@ -1,6 +1,7 @@
 package com.igorcavalcanti.currency_converter_api.service;
 
 import com.igorcavalcanti.currency_converter_api.dto.response.ConversionResponse;
+import com.igorcavalcanti.currency_converter_api.exception.RateNotFoundException;
 import com.igorcavalcanti.currency_converter_api.util.CurrencyRates;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class ConversionService {
         BigDecimal rate = rateService.getRate(from, to);
 
         if (rate == null) {
-            throw new IllegalArgumentException("Conversion rate not available for " + from + " -> " + to);
+            throw new RateNotFoundException("Conversion rate not available for " + from + " -> " + to);
         }
 
         BigDecimal normalizedAmount = amount.setScale(2, RoundingMode.HALF_UP);
